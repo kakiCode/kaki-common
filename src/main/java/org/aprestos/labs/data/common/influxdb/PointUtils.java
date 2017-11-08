@@ -40,8 +40,12 @@ public class PointUtils {
 			for( Map.Entry<String, Object> entry: p.getFields().entrySet() ){
 				Object value = entry.getValue();
 				String field = entry.getKey();
-				if ( value instanceof Number ) 
-					builder.addField(field, (Number)value);
+				if ( value instanceof Number ) {
+					if ( value instanceof Integer )
+						builder.addField(field, (Integer)value);
+					else
+						builder.addField(field, (Double)value);
+				}
 				else if ( value instanceof String )
 					builder.addField(field, (String)value);
 				else

@@ -1,0 +1,42 @@
+
+buildscript {
+  repositories {
+  	jcenter()
+  }
+  dependencies {
+    classpath 'com.github.jengelman.gradle.plugins:shadow:1.2.4'
+  }
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+
+
+sourceCompatibility = 1.8
+version = '1.0'
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'Kaki Common library',
+                   'Implementation-Version': version
+    }
+}
+
+dependencies {
+
+    compile 'org.slf4j:slf4j-api:1.7.21'    
+    compile 'ch.qos.logback:logback-classic:1.2.3'
+    compile 'ch.qos.logback:logback-core:1.2.3'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.8.1'
+    compile 'org.influxdb:influxdb-java:2.6'
+    compile 'org.apache.flume:flume-ng-core:' + flumeVersion
+    compile 'org.apache.flume:flume-ng-sdk:' + flumeVersion
+    compile 'org.apache.commons:commons-lang3:3.6'
+    
+    testCompile 'junit:junit:4.12'
+}
