@@ -1,9 +1,13 @@
 package org.aprestos.labs.data.common.influxdb;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang3.NotImplementedException;
+import org.apache.flume.Event;
+import org.apache.flume.event.EventBuilder;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.influxdb.dto.Point;
 
@@ -59,6 +63,20 @@ public class PointUtils {
 		return builder.build();
 		
 	}
+	
+	public static Event createPointEvent(final double value, final String measurement) throws Exception {
+	    Event result = null;
+	      final Map<String, String> headers = new HashMap<String, String>();
+	      long ts = new Date().getTime();
+	      Map<String, String> tags = new HashMap<String, String>();
+	      tags.put("name", "dummy_percentage");
+	      Map<String, Object> values = new HashMap<String, Object>();
+	      values.put("value", value);
+	      headers.put("timestamp", Long.toString(ts));
+	      PointDto point = new PointDto(ts, measurement, tags, values);
+	      result = EventBuilder.withBody(PointUtils.toBytes(point), headers);
+	    return result;
+	  }
 	
 
 }
